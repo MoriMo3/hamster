@@ -1,115 +1,174 @@
 import 'dart:math';
+
 import 'package:flutter/material.dart';
 
+void main() => runApp(const OmikujiApp());
 
-void main() => runApp(const MaterialApp(home: HamsterGacha()));
+class OmikujiApp extends StatelessWidget {
+  const OmikujiApp({super.key});
 
-class HamsterGacha extends StatefulWidget {
-  const HamsterGacha({super.key});
   @override
-  State<HamsterGacha> createState() => _HamsterGachaState();
-  }
-  class _HamsterGachaState extends State<HamsterGacha> {
-  int n = 0, e = 0;
-  bool loading = false;
-  final emojis = ['🐱', '🐾', '😺', '✨'];
-  
-  final images = [
-  "https://kmc2400.github.io/hamster-images/acidfern-_ASImGUewVM-unsplash.jpg",
-  "https://kmc2400.github.io/hamster-images/adela-monczkova-IvJa_c8THWg-unsplash.jpg",
-  "https://kmc2400.github.io/hamster-images/adela-monczkova-qmiID5T8_uA-unsplash.jpg",
-  "https://kmc2400.github.io/hamster-images/alex-konokh-6MKJbkZ0qNY-unsplash.jpg",
-  "https://kmc2400.github.io/hamster-images/andy-holmes-fyc0u7SoBOQ-unsplash.jpg",
-  "https://kmc2400.github.io/hamster-images/bjorn-antonissen-YkRRIEkVajk-unsplash.jpg",
-  "https://kmc2400.github.io/hamster-images/bonnie-kittle-MUcxe_wDurE-unsplash.jpg",
-  "https://kmc2400.github.io/hamster-images/denis-bayer-4KC4hUWCtJI-unsplash.jpg",
-  "https://kmc2400.github.io/hamster-images/doina-gavrilov-BpAnE1DVWEs-unsplash.jpg",
-  "https://kmc2400.github.io/hamster-images/finney-kFh7PHBKWd0-unsplash.jpg",
-  "https://kmc2400.github.io/hamster-images/frances-goldberg-mnOVgsxg-8E-unsplash.jpg",
-  "https://kmc2400.github.io/hamster-images/frenjamin-benklin-2Px6-jGGH_w-unsplash.jpg",
-  "https://kmc2400.github.io/hamster-images/frenjamin-benklin-6yKTcxJhbQ8-unsplash.jpg",
-  "https://kmc2400.github.io/hamster-images/frenjamin-benklin-8gOu6m_tj-0-unsplash.jpg",
-  "https://kmc2400.github.io/hamster-images/frenjamin-benklin-i0OwUyZ4QW0-unsplash.jpg",
-  "https://kmc2400.github.io/hamster-images/frenjamin-benklin-KIXHGKPswE0-unsplash.jpg",
-  "https://kmc2400.github.io/hamster-images/frenjamin-benklin-waKf09YkDcw-unsplash.jpg",
-  "https://kmc2400.github.io/hamster-images/guillermo-velarde-JlI9qNsD-Uw-unsplash.jpg",
-  "https://kmc2400.github.io/hamster-images/gustavo-zambelli-mwwRDU_ekjw-unsplash.jpg",
-  "https://kmc2400.github.io/hamster-images/henry-lai-2uTVeLDQQkk-unsplash.jpg",
-  "https://kmc2400.github.io/hamster-images/henry-lai-ZKLsj6xruAk-unsplash.jpg",
-  "https://kmc2400.github.io/hamster-images/jaroslaw-slodkiewicz-SDIIfq6nhFU-unsplash.jpg",
-  "https://kmc2400.github.io/hamster-images/jay-nlper-Tpff0kOfhYw-unsplash.jpg",
-  "https://kmc2400.github.io/hamster-images/juliya-sidorova-FOxMZK1VQS8-unsplash.jpg",
-  "https://kmc2400.github.io/hamster-images/katherine-mcadoo-vSS2_KfzbLY-unsplash.jpg",
-  "https://kmc2400.github.io/hamster-images/kim-green-1VY30CTcsqE-unsplash.jpg",
-  "https://kmc2400.github.io/hamster-images/kim-green-D_pXn7cueOs-unsplash.jpg",
-  "https://kmc2400.github.io/hamster-images/leslie-soto-Py1iPnpzLoo-unsplash.jpg",
-  "https://kmc2400.github.io/hamster-images/matt-bero-wMXetxdXeZM-unsplash.jpg",
-  "https://kmc2400.github.io/hamster-images/melissa-keizer-2Qs3kvXGwjg-unsplash.jpg",
-  "https://kmc2400.github.io/hamster-images/melissa-keizer-UTv7cPiNsug-unsplash.jpg",
-  "https://kmc2400.github.io/hamster-images/nick-fewings--dtKoaHpi9M-unsplash.jpg",
-  "https://kmc2400.github.io/hamster-images/nikolett-emmert-4WDzXJrPNLE-unsplash.jpg",
-  "https://kmc2400.github.io/hamster-images/nikolett-emmert-FsBKr0AOirM-unsplash.jpg",
-  "https://kmc2400.github.io/hamster-images/nikolett-emmert-WiBYpESTwb8-unsplash.jpg",
-  "https://kmc2400.github.io/hamster-images/nikolett-emmert-ZSc4X_rqjL8-unsplash.jpg",
-  "https://kmc2400.github.io/hamster-images/nils-schirmer-cKYM8KMwaUQ-unsplash.jpg",
-  "https://kmc2400.github.io/hamster-images/peter-steiner-1973-fcXMGrmk64o-unsplash.jpg",
-  "https://kmc2400.github.io/hamster-images/raychan-8IW8f37QAYA-unsplash.jpg",
-  "https://kmc2400.github.io/hamster-images/ricky-kharawala-adK3Vu70DEQ-unsplash.jpg",
-  "https://kmc2400.github.io/hamster-images/silje-roseneng-cMp84C0fPSg-unsplash.jpg",
-  "https://kmc2400.github.io/hamster-images/sunira-moses-aXK_a0xxmW0-unsplash.jpg",
-  "https://kmc2400.github.io/hamster-images/sunira-moses-r149yvhlJ4Q-unsplash.jpg",
-  "https://kmc2400.github.io/hamster-images/yosei-g-OVgE3m4MHKM-unsplash.jpg",
-  "https://kmc2400.github.io/hamster-images/zdenek-machacek-WZC1_6ChfMs-unsplash.jpg",
-  "https://kmc2400.github.io/hamster-images/zhaoli-jin-57ePgTDfwWM-unsplash.jpg",
-  "https://kmc2400.github.io/hamster-images/zhaoli-jin-83lFoPXYbkA-unsplash.jpg",
-  "https://kmc2400.github.io/hamster-images/zhaoli-jin-cgnDJkzWkTg-unsplash.jpg",
-  "https://kmc2400.github.io/hamster-images/zhaoli-jin-g6q1ko1ghos-unsplash.jpg",
-  "https://kmc2400.github.io/hamster-images/zhaoli-jin-MwJ-VkhxOBs-unsplash.jpg",
-  "https://kmc2400.github.io/hamster-images/zhaoli-jin-ntpFNTy_XzY-unsplash.jpg",
-  "https://kmc2400.github.io/hamster-images/zhaoli-jin-u33lLlcLoys-unsplash.jpg",
-  "https://kmc2400.github.io/hamster-images/zhaoli-jin-Xtb_lO_9r6Q-unsplash.jpg"
-];
+  Widget build(BuildContext context) => MaterialApp(
+    debugShowCheckedModeBanner: false,
+    title: 'おみくじ',
+    theme: ThemeData(
+      colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFFB3261E)),
+      useMaterial3: true,
+    ),
+    home: const OmikujiPage(),
+  );
+}
 
-  Future<void> gacha() async {
-    setState(() => loading = true);
-    for (int i = 0; i < 10; i++) {
-      await Future.delayed(const Duration(milliseconds: 200));
-      setState(() => e = (e + 1) % emojis.length);
+class OmikujiPage extends StatefulWidget {
+  const OmikujiPage({super.key});
+
+  @override
+  State<OmikujiPage> createState() => _OmikujiPageState();
+}
+
+class _OmikujiPageState extends State<OmikujiPage> {
+  int n = 0, e = 0, colorIndex = 0;
+  bool loading = false;
+  final emojis = ['⛩️', '👼', '🙏', '✨'];
+  final backgroundColors = [
+    const Color(0xFF0000FF),
+    const Color(0xFF00FFFF),
+    const Color(0xFFFF0000),
+    const Color(0xFF00FF00),
+    const Color(0xFFFFFF00),
+  ];
+
+  // web/images に置いたおみくじ画像を表示します。
+  final images = [
+    'images/omikuji-daikichi.png',
+    'images/omikuji-chukichi.png',
+    'images/omikuji-kichi.png',
+    'images/omikuji-shokichi.png',
+    'images/omikuji-kyo.png',
+    'images/omikuji-daikyo.png',
+    'images/omikuji-suekyo.png',
+  ];
+
+  Future<void> drawOmikuji() async {
+    setState(() {
+      loading = true;
+      e = 0;
+      colorIndex = 0;
+    });
+
+    for (int i = 0; i < 14; i++) {
+      await Future.delayed(const Duration(milliseconds: 120));
+      if (!mounted) return;
+      setState(() {
+        e = (e + 1) % emojis.length;
+        colorIndex = (colorIndex + 1) % backgroundColors.length;
+      });
     }
+
+    if (!mounted) return;
     setState(() {
       n = Random().nextInt(images.length);
       loading = false;
     });
-
   }
-  
+
   @override
   Widget build(BuildContext context) => Scaffold(
-    appBar: AppBar(title: const Text('🐱 Cat Gacha')),
-    body: Center(
-    child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          SizedBox(
-            width: 300,
-            height: 300,
-            child: loading
-                ? Center(
-                    child: Text(
-                      emojis[e],
-                      style: const TextStyle(fontSize: 100),
-                    ),
-                  )
-                : Image.network(images[n], fit: BoxFit.cover),
-                ),
-          const SizedBox(height: 30),
-          const Text('🐾', style: TextStyle(fontSize: 72)),
-          ElevatedButton(
-          onPressed: loading ? null : gacha,
-            child: const Text('ガチャを回す！'),
-        ),
-      ],
+    appBar: AppBar(
+      title: const Text('⛩️ おみくじ'),
+      centerTitle: true,
+      backgroundColor: const Color(0xFFB3261E),
+      foregroundColor: Colors.white,
     ),
-  ),
-);
+    body: AnimatedContainer(
+      duration: const Duration(milliseconds: 120),
+      curve: Curves.easeInOut,
+      color: loading ? backgroundColors[colorIndex] : const Color(0xFFFFF8EE),
+      child: Center(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(24),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                loading ? '運勢を占っています…' : '今日の運勢は？',
+                style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                  color: const Color(0xFF6F1D1B),
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const SizedBox(height: 22),
+              Container(
+                width: 300,
+                height: 480,
+                clipBehavior: Clip.antiAlias,
+                decoration: BoxDecoration(
+                  color: Colors.white.withValues(alpha: 0.88),
+                  borderRadius: BorderRadius.circular(24),
+                  border: Border.all(color: const Color(0xFFB3261E), width: 3),
+                  boxShadow: const [
+                    BoxShadow(
+                      color: Color(0x33000000),
+                      blurRadius: 18,
+                      offset: Offset(0, 8),
+                    ),
+                  ],
+                ),
+                child: loading
+                    ? Center(
+                        child: AnimatedSwitcher(
+                          duration: const Duration(milliseconds: 100),
+                          transitionBuilder: (child, animation) =>
+                              ScaleTransition(
+                                scale: animation,
+                                child: FadeTransition(
+                                  opacity: animation,
+                                  child: child,
+                                ),
+                              ),
+                          child: Text(
+                            emojis[e],
+                            key: ValueKey(e),
+                            style: const TextStyle(fontSize: 108),
+                          ),
+                        ),
+                      )
+                    : Image.network(
+                        images[n],
+                        fit: BoxFit.contain,
+                        errorBuilder: (context, error, stackTrace) =>
+                            const Center(
+                              child: Text(
+                                '🌸',
+                                style: TextStyle(fontSize: 100),
+                              ),
+                            ),
+                      ),
+              ),
+              const SizedBox(height: 24),
+              const Text(' ⛩️ ', style: TextStyle(fontSize: 42)),
+              const SizedBox(height: 12),
+              FilledButton.icon(
+                onPressed: loading ? null : drawOmikuji,
+                style: FilledButton.styleFrom(
+                  backgroundColor: const Color(0xFFB3261E),
+                  foregroundColor: Colors.white,
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 32,
+                    vertical: 18,
+                  ),
+                  textStyle: const TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                icon: const Text('🔔', style: TextStyle(fontSize: 22)),
+                label: Text(loading ? '占い中…' : 'おみくじを引く'),
+              ),
+            ],
+          ),
+        ),
+      ),
+    ),
+  );
 }
