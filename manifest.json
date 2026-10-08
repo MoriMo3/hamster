@@ -1,11 +1,11 @@
 {
-    "name": "hamster",
-    "short_name": "hamster",
+    "name": "おみくじ",
+    "short_name": "おみくじ",
     "start_url": ".",
     "display": "standalone",
-    "background_color": "#0175C2",
-    "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
+    "background_color": "#FFF8EE",
+    "theme_color": "#B3261E",
+    "description": "写真で楽しむおみくじアプリ",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [
